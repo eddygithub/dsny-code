@@ -6,6 +6,7 @@ import gov.nyc.dsny.storyboard.persistence.repository.SprintRepository;
 import gov.nyc.dsny.storyboard.persistence.repository.StoryRepository;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class SprintServiceImpl implements SprintService {
 	public Sprint assignStory(Long sprintId, Long storyId) {
 		Sprint sprint = sprintRepository.findOne(sprintId);
 		if(sprint!=null){
-			List<Long> stories = sprint.getStories();
+			Set<Long> stories = sprint.getStories();
 			stories.add(storyId);
 			sprint.setStories(stories);
 		}
@@ -34,16 +35,18 @@ public class SprintServiceImpl implements SprintService {
 	public Sprint reAssignStory(Long oldSprintId, Long newSprintId, Long storyId) {
 		Sprint oldSprint = sprintRepository.findOne(oldSprintId);
 		if(oldSprint!=null){
-			List<Long> stories = oldSprint.getStories();
+			Set<Long> stories = oldSprint.getStories();
 			stories.remove(storyId);
 			oldSprint.setStories(stories);
+			sprintRepository.save(oldSprint);
 		}
 		
 		Sprint newSprint = sprintRepository.findOne(newSprintId);
 		if(newSprint!=null){
-			List<Long> stories = newSprint.getStories();
+			Set<Long> stories = newSprint.getStories();
 			stories.add(storyId);
 			newSprint.setStories(stories);
+			sprintRepository.save(newSprint);
 		}
 		return newSprint;
 	}
@@ -53,7 +56,7 @@ public class SprintServiceImpl implements SprintService {
 		List<Story> stories = null;
 		Sprint sprint = sprintRepository.findOne(sprintId);
 		if(sprint!=null){
-			storyRepository.findAll(sprint.getStories());
+			stories =storyRepository.findAll(sprint.getStories());
 		}
 		return stories;
 	}
@@ -62,9 +65,10 @@ public class SprintServiceImpl implements SprintService {
 	public Sprint unassign(Long sprintId, Long storyId) {
 		Sprint sprint = sprintRepository.findOne(sprintId);
 		if(sprint!=null){
-			List<Long> stories = sprint.getStories();
+			Set<Long> stories = sprint.getStories();
 			stories.remove(storyId);
 			sprint.setStories(stories);
+			sprintRepository.save(sprint);
 		}
 		return sprint;
 	}

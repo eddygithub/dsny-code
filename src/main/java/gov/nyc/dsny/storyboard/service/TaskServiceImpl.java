@@ -1,14 +1,14 @@
 package gov.nyc.dsny.storyboard.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import gov.nyc.dsny.storyboard.entity.Story;
 import gov.nyc.dsny.storyboard.entity.Task;
 import gov.nyc.dsny.storyboard.persistence.repository.StoryRepository;
 import gov.nyc.dsny.storyboard.persistence.repository.TaskRepository;
+
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -30,9 +30,10 @@ public class TaskServiceImpl implements TaskService {
 		Story story = storyRepository.findOne(storyId);
 		if(task!=null){
 			if(story!=null){
-				List<Long> tasks = story.getTasks();
+				Set<Long> tasks = story.getTasks();
 				tasks.add(taskId);
 				story.setTasks(tasks);
+				storyRepository.save(story);
 			}
 		}
 		return story;
@@ -45,15 +46,17 @@ public class TaskServiceImpl implements TaskService {
 		Story newStory = storyRepository.findOne(newStoryId);
 		if(task!=null){
 			if(oldStory!=null){
-				List<Long> tasks = oldStory.getTasks();
+				Set<Long> tasks = oldStory.getTasks();
 				tasks.remove(taskId);
 				oldStory.setTasks(tasks);
+				storyRepository.save(oldStory);
 			}
 			
 			if(newStory!=null){
-				List<Long> tasks = newStory.getTasks();
+				Set<Long> tasks = newStory.getTasks();
 				tasks.add(taskId);
 				newStory.setTasks(tasks);
+				storyRepository.save(newStory);
 			}
 		}
 		return newStory;

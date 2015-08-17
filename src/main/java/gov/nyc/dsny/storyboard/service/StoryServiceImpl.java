@@ -6,6 +6,7 @@ import gov.nyc.dsny.storyboard.persistence.repository.StoryRepository;
 import gov.nyc.dsny.storyboard.persistence.repository.TaskRepository;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class StoryServiceImpl implements StoryService {
 		Story story = storyRepository.findOne(id);
 		List<Task> tasks = null;
 		if(story!=null){
-			List<Long> taskIds = story.getTasks();
+			Set<Long> taskIds = story.getTasks();
 			tasks = taskRepository.findAll(taskIds);
 		}
 		return tasks;

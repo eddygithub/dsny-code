@@ -1,7 +1,7 @@
 package gov.nyc.dsny.storyboard.entity;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Sprint {
 	public Long getId() {
@@ -10,12 +10,12 @@ public class Sprint {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<Long> getStories() {
+	public Set<Long> getStories() {
 		return stories;
 	}
-	public void setStories(List<Long> stories) {
+	public void setStories(Set<Long> stories) {
 		this.stories = stories;
 	}
 	private Long id;
-	private List<Long> stories = new LinkedList<Long>();
+	private Set<Long> stories = new LinkedHashSet<Long>();
 }

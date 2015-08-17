@@ -1,12 +1,12 @@
 package gov.nyc.dsny.storyboard.entity;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Story {
 	private Long id;
-	private List<Long> tasks = new LinkedList<Long>();
+	private Set<Long> tasks = new LinkedHashSet<Long>();
 	private String productName;
 	private boolean isGroomed;
 	private int priority;
@@ -49,10 +49,10 @@ public class Story {
 	public void setSprintValue(String sprintValue) {
 		this.sprintValue = sprintValue;
 	}
-	public List<Long> getTasks() {
+	public Set<Long> getTasks() {
 		return tasks;
 	}
-	public void setTasks(List<Long> tasks) {
+	public void setTasks(Set<Long> tasks) {
 		this.tasks = tasks;
 	}
 }

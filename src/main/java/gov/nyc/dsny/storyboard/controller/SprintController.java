@@ -35,7 +35,7 @@ public class SprintController {
 		return sprintService.findStories(sprintId);
 	}
 	
-	@RequestMapping("/unassign/{sprintId}/{storyId}")
+	@RequestMapping(value="/unassign/{sprintId}/{storyId}", method=RequestMethod.POST)
 	public void unassignStory(@PathVariable Long sprintId, @PathVariable Long storyId){
 		sprintService.unassign(sprintId, storyId);
 	}

@@ -1,16 +1,16 @@
 package gov.nyc.dsny.storyboard.entity;
 
-import java.util.List;
+import java.util.Set;
 
 public class BackLog {
 	private Long id;
-	private List<Long> stories;
+	private Set<Long> stories;
 
-	public List<Long> getStories() {
+	public Set<Long> getStories() {
 		return stories;
 	}
 
-	public void setStories(List<Long> stories) {
+	public void setStories(Set<Long> stories) {
 		this.stories = stories;
 	}
 

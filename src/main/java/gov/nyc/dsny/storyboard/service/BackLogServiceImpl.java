@@ -6,6 +6,7 @@ import gov.nyc.dsny.storyboard.persistence.repository.BackLogRepository;
 import gov.nyc.dsny.storyboard.persistence.repository.StoryRepository;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class BackLogServiceImpl implements BackLogService {
 		List<Story> stories = null;
 		BackLog backLog = backLogRepository.findOne(id);
 		if(backLog!=null){
-			List<Long> backLogIds = backLog.getStories();
+			Set<Long> backLogIds = backLog.getStories();
 			stories = storyRepository.findAll(backLogIds);
 		}
 		return stories;
